@@ -1,6 +1,11 @@
+local cam
+local zoomOffset, camOffset, heading, skinLoaded = 0.0, 0.0, 90.0, false
+
 RegisterNetEvent('esx_skin_hud:OpenNui')
 AddEventHandler('esx_skin_hud:OpenNui', function()
+
     SetNuiFocus(false,false)
+
     TriggerEvent('skinchanger:getSkin', function(skin)
         lastSkin = skin
     end)
@@ -8,11 +13,11 @@ AddEventHandler('esx_skin_hud:OpenNui', function()
     TriggerEvent('skinchanger:getData', function(components, maxVals)
         local elements    = {}
         local _components = {}
-        
+
         for i=1, #components, 1 do
             _components[i] = components[i]
         end
-        
+
         for i=1, #_components, 1 do
             local value       = _components[i].value
             local componentId = _components[i].componentId
@@ -48,6 +53,7 @@ AddEventHandler('esx_skin_hud:OpenNui', function()
         local coords    = GetEntityCoords(playerPed)
 
         local angle = heading * math.pi / 180.0
+
         local theta = {
             x = math.cos(angle),
             y = math.sin(angle)
@@ -57,8 +63,10 @@ AddEventHandler('esx_skin_hud:OpenNui', function()
             x = coords.x + (zoomOffset * theta.x),
             y = coords.y + (zoomOffset * theta.y)
         }
+
         local angle = 90
         local angleToLook = heading - 140.0
+
         if angleToLook > 360 then
             angleToLook = angleToLook - 360
         elseif angleToLook < 0 then
@@ -66,6 +74,7 @@ AddEventHandler('esx_skin_hud:OpenNui', function()
         end
 
         angleToLook = angleToLook * math.pi / 180.0
+
         local thetaToLook = {
             x = math.cos(angleToLook),
             y = math.sin(angleToLook)
@@ -76,6 +85,7 @@ AddEventHandler('esx_skin_hud:OpenNui', function()
             y = coords.y + (zoomOffset * thetaToLook.y)
         }
 
+        cam = CreateCam('DEFAULT_SCRIPTED_CAMERA', true)
         SetCamCoord(cam, pos.x, pos.y, coords.z + camOffset)
         PointCamAtCoord(cam, posToLook.x, posToLook.y, coords.z + camOffset)
 
