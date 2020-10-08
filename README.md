@@ -32,6 +32,10 @@ git clone https://github.com/lucianfialhobp/esx_skin_hud [esx]/esx_skin_hud
 ensure esx_skin_hud
 ```
 
+# Credits
+[@slypher](https://github.com/Slypher)
+[B2K Development](https://discord.gg/b2kdev)
+
 # Legal
 ### License
 esx_skin_hud - Skin create script for fivem
