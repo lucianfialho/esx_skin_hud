@@ -2,6 +2,8 @@
 
 ESX Skin HUd  is an plugin for ESX to show skin bar:
 
+![esx_skin_hud](https://media.discordapp.net/attachments/752611239988822027/763829153266401300/unknown.png?width=1110&height=703)
+
 ## Requirements
 
 * Auto mode
