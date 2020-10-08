@@ -17,6 +17,13 @@ function CreateSkinCam()
     SetEntityHeading(playerPed, 0.0)
 end
 
+function DeleteSkinCam()
+    isCameraActive = false
+    SetCamActive(cam, false)
+    RenderScriptCams(false, true, 500, true, true)
+    cam = nil
+end
+
 function loadCamera(camOffset, zoomOffset)
     CreateSkinCam()
 
@@ -144,17 +151,25 @@ end)
 
 
 RegisterNUICallback('esx_skin_hud:ChangeOption', function(data, cb)
-    
     TriggerEvent('skinchanger:change', data.data.name, data.data.value)
-
     cb('OK')
 end)
 
 
 RegisterNUICallback('esx_skin_hud:ChangeCameraOffSet', function(data, cb)
-    print(json.encode(data.data.zoomOffset))
     loadCamera(data.data.camOffset, data.data.zoomOffset)
-    TriggerEvent('skinchanger:change', data.data.name, data.data.value)
-
     cb('OK')
 end)
+
+
+RegisterNUICallback('esx_skin_hud:SavePersonSkin', function(data, cb)
+    DeleteSkinCam()
+    SetNuiFocus(false, false)
+    
+    TriggerEvent('skinchanger:getSkin', function(skin)
+        TriggerServerEvent('esx_skin:save', skin)
+
+        cb({ success = true, showSkinHud = false, components = ''})
+    end)
+end)
+
