@@ -32,7 +32,7 @@ ensure esx_skin_hud
 
 # Legal
 ### License
-esx_skin_hud - ambulance script for fivem
+esx_skin_hud - Skin create script for fivem
 
 Copyright (C) 2020 Lucian Fialho
 
