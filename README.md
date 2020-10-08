@@ -33,7 +33,7 @@ ensure esx_skin_hud
 ```
 
 # Credits
-[@slypher](https://github.com/Slypher)
+[@slypher](https://github.com/Slypher)  
 [B2K Development](https://discord.gg/b2kdev)
 
 # Legal
