@@ -76,6 +76,8 @@ function loadCamera(camOffset, zoomOffset)
     }
 
     cam = CreateCam('DEFAULT_SCRIPTED_CAMERA', true)
+    
+    print(coords.z + camOffset)
 
     SetCamCoord(cam, pos.x, pos.y, coords.z + camOffset)
     PointCamAtCoord(cam, posToLook.x, posToLook.y, coords.z + camOffset)
@@ -108,6 +110,7 @@ AddEventHandler('esx_skin_hud:OpenNui', function()
                 value = GetPedPropIndex(playerPed, _components[i].componentId)
             end
 
+            
             local data = {
                 label     = _components[i].label,
                 name      = _components[i].name,
@@ -124,7 +127,10 @@ AddEventHandler('esx_skin_hud:OpenNui', function()
                     break
                 end
             end
-            table.insert(elements, data)
+
+            if data.max ~= 0 then
+                table.insert(elements, data)
+            end
         end
 
         zoomOffset = _components[1].zoomOffset
@@ -138,9 +144,17 @@ end)
 
 
 RegisterNUICallback('esx_skin_hud:ChangeOption', function(data, cb)
+    
+    TriggerEvent('skinchanger:change', data.data.name, data.data.value)
+
+    cb('OK')
+end)
+
+
+RegisterNUICallback('esx_skin_hud:ChangeCameraOffSet', function(data, cb)
+    print(json.encode(data.data.zoomOffset))
     loadCamera(data.data.camOffset, data.data.zoomOffset)
-    
-    
-    
+    TriggerEvent('skinchanger:change', data.data.name, data.data.value)
+
     cb('OK')
 end)
